@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite the manuscript and this reproducibility repository."
+title: "Reproducibility materials for Fossil-Power Contraction across G20 Electricity Systems"
+type: software
+authors:
+  - family-names: "Küçükoğlu"
+    given-names: "Sami"
+repository-code: "https://github.com/Sami6639/g20-fossil-power-contraction-reproducibility"
+url: "https://github.com/Sami6639/g20-fossil-power-contraction-reproducibility"
+version: 1.0.0
+date-released: 2026-09-02
+license: MIT
+keywords:
+  - fossil electricity
+  - G20
+  - aggregation
+  - contribution concentration
+  - reproducibility
+preferred-citation:
+  type: article
+  title: "Fossil-Power Contraction across G20 Electricity Systems: National Breadth, Physical Depth, and Contribution Concentration"
+  authors:
+    - family-names: "Küçükoğlu"
+      given-names: "Sami"
+  year: 2026
+  status: "Manuscript"
+

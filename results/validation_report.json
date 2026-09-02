@@ -1,0 +1,11 @@
+{
+  "rows_475": true,
+  "countries_19": true,
+  "years_2000_2024": true,
+  "balanced_panel": true,
+  "core_complete": true,
+  "annual_counts_reconcile": true,
+  "balances_bounded": true,
+  "flow_identity": true,
+  "all_pass": true
+}

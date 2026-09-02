@@ -1,0 +1,21 @@
+{
+  "derived_panel_sha256": true,
+  "rows_475": true,
+  "countries_19": true,
+  "years_2000_2024": true,
+  "balanced_panel": true,
+  "reductions_174": true,
+  "additions_301": true,
+  "country_balance": true,
+  "physical_balance": true,
+  "scale_gap": true,
+  "gross_reductions": true,
+  "gross_additions": true,
+  "annual_reversals_2013_2018_2023": true,
+  "addition_hhi": true,
+  "reduction_hhi": true,
+  "china_addition_share": true,
+  "bootstrap_replications": true,
+  "bootstrap_seed": true,
+  "all_pass": true
+}
