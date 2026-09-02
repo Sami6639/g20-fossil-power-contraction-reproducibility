@@ -88,8 +88,10 @@ African Union are not treated as country observations. The primary period is
 `code/02_verify.py` checks the panel checksum and structure, the 174 reduction
 and 301 addition observations, full-period country and physical balances, the
 three annual direction reversals, flow magnitudes, concentration results,
-China's addition share, and the bootstrap seed and replication count. A failed
-check terminates the workflow with a non-zero exit status.
+China's addition share, the strict sign-opposition definition of direction
+reversal, and the bootstrap seed and replication count. A failed check
+terminates the workflow with a non-zero exit status. The workflow also refreshes
+`verification/SHA256SUMS.txt` after every successful run.
 
 No restricted, confidential, or personal data are included.
 

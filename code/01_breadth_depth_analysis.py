@@ -28,6 +28,11 @@ def _safe_balance(positive_side: float, negative_side: float) -> float:
     return (positive_side - negative_side) / denominator if denominator > 0 else np.nan
 
 
+def _is_direction_reversal(country_balance: float, physical_balance: float) -> bool:
+    """Return True only when the two balances have strictly opposite signs."""
+    return bool(country_balance * physical_balance < 0)
+
+
 def _concentration(values: pd.Series) -> dict[str, float]:
     values = values.loc[values > 0].astype(float).sort_values(ascending=False)
     total = float(values.sum())
@@ -87,7 +92,7 @@ def summarize_group(group: pd.DataFrame) -> dict[str, float]:
         "observed_net_contraction_twh": observed_net,
         "physical_balance": physical_balance,
         "scale_gap": country_balance - physical_balance,
-        "direction_reversal": bool(np.sign(country_balance) != np.sign(physical_balance)),
+        "direction_reversal": _is_direction_reversal(country_balance, physical_balance),
     }
 
 
@@ -169,7 +174,7 @@ def bootstrap_full_period(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFra
             "country_balance": country_balance,
             "physical_balance": physical_balance,
             "scale_gap": country_balance - physical_balance,
-            "direction_reversal": np.sign(country_balance) != np.sign(physical_balance),
+            "direction_reversal": country_balance * physical_balance < 0,
         }
     )
     intervals = []
@@ -223,7 +228,14 @@ def validate(panel: pd.DataFrame, annual: pd.DataFrame) -> dict[str, object]:
 
 
 def make_figures(annual: pd.DataFrame, countries: pd.DataFrame) -> None:
-    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10, "axes.titlesize": 12})
+    plt.rcParams.update(
+        {
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.titlesize": 12,
+            "svg.hashsalt": "g20-fossil-contraction-20260902",
+        }
+    )
 
     fig, ax = plt.subplots(figsize=(9.2, 5.2))
     ax.axhline(0, color="#777777", linewidth=0.8)
@@ -235,7 +247,7 @@ def make_figures(annual: pd.DataFrame, countries: pd.DataFrame) -> None:
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
     fig.savefig(FIGURES / "figure_1_country_vs_physical_balance.png", dpi=300)
-    fig.savefig(FIGURES / "figure_1_country_vs_physical_balance.svg")
+    fig.savefig(FIGURES / "figure_1_country_vs_physical_balance.svg", metadata={"Date": None})
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(6.4, 6.0))
@@ -253,7 +265,7 @@ def make_figures(annual: pd.DataFrame, countries: pd.DataFrame) -> None:
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
     fig.savefig(FIGURES / "figure_2_scale_alignment.png", dpi=300)
-    fig.savefig(FIGURES / "figure_2_scale_alignment.svg")
+    fig.savefig(FIGURES / "figure_2_scale_alignment.svg", metadata={"Date": None})
     plt.close(fig)
 
     plot = countries.sort_values("net_contraction_twh")
@@ -266,7 +278,7 @@ def make_figures(annual: pd.DataFrame, countries: pd.DataFrame) -> None:
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
     fig.savefig(FIGURES / "figure_3_country_net_contributions.png", dpi=300)
-    fig.savefig(FIGURES / "figure_3_country_net_contributions.svg")
+    fig.savefig(FIGURES / "figure_3_country_net_contributions.svg", metadata={"Date": None})
     plt.close(fig)
 
 
